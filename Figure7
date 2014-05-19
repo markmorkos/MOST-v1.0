@@ -1,0 +1,347 @@
+package building;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+import basicFunc.Basic;
+
+public class Figure7 implements Figure{
+		int x=210;
+		int y;
+		int type;
+		boolean stop;
+		Cube[] cube;
+		private int rot;
+		public Figure7(){
+			setFigureType(7);
+			cube = new Cube[4];
+			for(int i=0;i<4;i++){
+				cube[i]=new Cube();
+			}
+			cube[0].setX(240);
+			cube[0].setY(cube[0].getY());
+			cube[1].setX(240);
+			cube[1].setY(cube[0].getY()+30);
+			cube[2].setX(240);
+			cube[2].setY(cube[0].getY()+60);
+			cube[3].setX(210);
+			cube[3].setY(cube[0].getY()+60);	
+		}
+
+
+		@Override
+		public int getFigureType() {
+			return type;
+		}
+
+		@Override
+		public void setStop(boolean stop) {
+			this.stop=stop;
+		}
+
+		@Override
+		public void setFigureType(int type) {
+			this.type=type;
+		}
+		@Override
+		public int getRot() {
+			return rot;
+		}
+		@Override
+		public void setRot(int rot) {
+			this.rot=rot;
+			
+		}
+		
+		public boolean getStop(){
+			return stop;
+		}
+		@Override
+		public void MoveOnField(boolean[][] data) {
+			Basic.SetFigureFalse(cube, data);
+			if(Basic.CheckFigureStopDown(cube, data, this)){
+				Move();
+			}
+			else{	setStop(true);}
+			Basic.SetFigureTrue(cube, data);
+		}
+
+		@Override
+		public void Move() {
+			if(getStop()!=true){
+				Basic.SetFigureMove(cube);
+			}
+		}
+
+		@Override
+		public void CtrlMoveLeft(boolean[][] data) {
+			Basic.SetFigureFalse(cube, data);
+			if(Basic.CheckFigureStopLeft(cube, data, this)){
+				for(int i=0;i<4;i++){
+					cube[i].setX(cube[i].getX()-30);
+				}
+			}	
+			Basic.SetFigureTrue(cube, data);
+		}
+
+		@Override
+		public void CtrlMoveRight(boolean[][] data) {
+			Basic.SetFigureFalse(cube, data);
+			if(Basic.CheckFigureStopRight(cube, data, this)){
+				for(int i=0;i<4;i++){
+					cube[i].setX(cube[i].getX()+30);
+				}
+			}
+			Basic.SetFigureTrue(cube, data);
+		}
+
+		@Override
+		public void CtrlMoveDown(boolean[][] data) {
+			Basic.SetFigureFalse(cube, data);
+			if(Basic.CheckFigureStopDown(cube, data, this)){
+				Move();
+			}
+			else setStop(true);
+			Basic.SetFigureTrue(cube, data);
+		}
+		@Override
+		public void RotateFig(boolean[][] data, Graphics2D g) {
+			if(rot==4)rot=0;
+			if(getStop()!=true){
+			switch(rot){
+			case 0:
+				Basic.SetFigureFalse(cube, data);
+			
+				cube[0].setX(cube[0].getX());
+				cube[0].setY(cube[0].getY());
+				cube[1].setX(cube[0].getX());
+				cube[1].setY(cube[0].getY()+30);
+				cube[2].setX(cube[0].getX());
+				cube[2].setY(cube[0].getY()+60);
+				cube[3].setX(cube[0].getX()-30);
+				cube[3].setY(cube[0].getY()+60);
+				if(Basic.CheckBoundDown(cube)){
+					cube[0].setY(570);
+					cube[1].setY(600);
+					cube[2].setY(630);
+					cube[3].setY(630);
+				}
+				if(Basic.CheckBoundUp(cube)){
+					cube[0].setY(0);
+					cube[1].setY(30);
+					cube[2].setY(60);
+					cube[3].setY(60);
+				}
+				if(Basic.CheckBoundLeft(cube)){
+					cube[0].setX(420);
+					cube[1].setX(420);
+					cube[2].setX(420);
+					cube[3].setX(450);
+				}
+				if(Basic.CheckBoundRight(cube)){
+					cube[0].setX(30);
+					cube[1].setX(30);
+					cube[2].setX(30);
+					cube[3].setX(0);
+				}
+				Basic.SetFigureTrue(cube, data);
+				break;
+			case 1:
+				Basic.SetFigureFalse(cube, data);
+			
+				cube[0].setX(cube[0].getX());
+				cube[0].setY(cube[0].getY());
+				cube[1].setX(cube[0].getX()-30);
+				cube[1].setY(cube[0].getY());
+				cube[2].setX(cube[0].getX()-60);
+				cube[2].setY(cube[0].getY());
+				cube[3].setX(cube[0].getX()-60);
+				cube[3].setY(cube[0].getY()-30);
+				if(Basic.CheckBoundDown(cube)){
+					cube[0].setY(630);
+					cube[1].setY(630);
+					cube[2].setY(630);
+					cube[3].setY(600);
+				}
+				if(Basic.CheckBoundUp(cube)){
+					cube[0].setY(30);
+					cube[1].setY(30);
+					cube[2].setY(30);
+					cube[3].setY(0);
+				}
+				if(Basic.CheckBoundLeft(cube) ){
+					cube[0].setX(450);
+					cube[1].setX(420);
+					cube[2].setX(390);
+					cube[3].setX(390);
+				}
+				if(Basic.CheckBoundRight(cube)){
+					cube[0].setX(60);
+					cube[1].setX(30);
+					cube[2].setX(0);
+					cube[3].setX(0);
+				}
+				Basic.SetFigureTrue(cube, data);
+				break;
+				
+			case 2:
+				Basic.SetFigureFalse(cube, data);
+			
+				cube[0].setX(cube[0].getX());
+				cube[0].setY(cube[0].getY()+60);
+				cube[1].setX(cube[0].getX());
+				cube[1].setY(cube[0].getY()-30);
+				cube[2].setX(cube[0].getX());
+				cube[2].setY(cube[0].getY()-60);
+				cube[3].setX(cube[0].getX()+30);
+				cube[3].setY(cube[0].getY()-60);
+				
+				if(Basic.CheckBoundDown(cube)){
+					cube[0].setY(630);
+					cube[1].setY(600);
+					cube[2].setY(570);
+					cube[3].setY(570);
+				}
+				if(Basic.CheckBoundUp(cube)){
+					cube[0].setY(60);
+					cube[1].setY(60);
+					cube[2].setY(30);
+					cube[3].setY(0);
+				}
+				if(Basic.CheckBoundLeft(cube)){
+					cube[0].setX(420);
+					cube[1].setX(420);
+					cube[2].setX(420);
+					cube[3].setX(450);
+				}
+				if(Basic.CheckBoundRight(cube)){
+					cube[0].setX(0);
+					cube[1].setX(0);
+					cube[2].setX(0);
+					cube[3].setX(30);
+				}
+				
+				Basic.SetFigureTrue(cube, data);
+				break;
+			case 3:
+				Basic.SetFigureFalse(cube, data);
+			
+				cube[0].setX(cube[0].getX()-60);
+				cube[0].setY(cube[0].getY()-30);
+				cube[1].setX(cube[0].getX()+30);
+				cube[1].setY(cube[0].getY());
+				cube[2].setX(cube[0].getX()+60);
+				cube[2].setY(cube[0].getY());
+				cube[3].setX(cube[0].getX()+60);
+				cube[3].setY(cube[0].getY()+30);
+				if(Basic.CheckBoundDown(cube)){
+					cube[0].setY(600);
+					cube[1].setY(600);
+					cube[2].setY(600);
+					cube[3].setY(630);
+				}
+				if(Basic.CheckBoundUp(cube)){
+					cube[0].setY(0);
+					cube[1].setY(0);
+					cube[2].setY(0);
+					cube[3].setY(30);
+				}
+				if(Basic.CheckBoundLeft(cube)){
+					cube[0].setX(390);
+					cube[1].setX(420);
+					cube[2].setX(450);
+					cube[3].setX(450);
+				}
+				if(Basic.CheckBoundRight(cube)){
+					cube[0].setX(0);
+					cube[1].setX(30);
+					cube[2].setX(60);
+					cube[3].setX(60);
+				}
+				Basic.SetFigureTrue(cube, data);
+				break;
+			}
+			}
+		}
+		@Override
+		public void FigureBuild(Graphics2D g) {
+			cube[0].CubeBuild(g, cube[0].getX(), cube[0].getY(), 30, 30, Color.blue);
+			cube[1].CubeBuild(g, cube[1].getX(), cube[1].getY(), 30, 30, Color.blue);
+			cube[2].CubeBuild(g, cube[2].getX(), cube[2].getY(), 30, 30, Color.blue);
+			cube[3].CubeBuild(g, cube[3].getX(), cube[3].getY(), 30, 30, Color.blue);		
+			
+		}
+
+
+		@Override
+		public int get0CubeY() {
+			return cube[0].getY();
+		}
+
+
+		@Override
+		public void set0CubeY(int y) {
+			if(rot==0){
+				cube[0].setY(y);
+				cube[1].setY(y+30);
+				cube[2].setY(y+60);
+				cube[3].setY(y+60);
+			}
+			if(rot==1){
+				cube[0].setY(y);
+				cube[1].setY(y);
+				cube[2].setY(y);
+				cube[3].setY(y-30);
+			}
+			if(rot==2){
+				cube[0].setY(y+60);
+				cube[1].setY(y+30);
+				cube[2].setY(y);
+				cube[3].setY(y);
+			}
+			if(rot==3){
+				cube[0].setY(y);
+				cube[1].setY(y);
+				cube[2].setY(y);
+				cube[3].setY(y+30);
+			}
+			
+		}
+
+
+		@Override
+		public Cube[] getCube() {
+			// TODO Auto-generated method stub
+			return cube;
+		}
+
+
+		@Override
+		public void set0CubeX(int x) {
+			if(rot==0){
+				cube[0].setX(x);
+				cube[1].setX(x);
+				cube[2].setX(x);
+				cube[3].setX(x-30);
+			}
+			if(rot==1){
+				cube[0].setX(x);
+				cube[1].setX(x-30);
+				cube[2].setX(x-60);
+				cube[3].setX(x-60);
+			}
+			if(rot==2){
+				cube[0].setX(x);
+				cube[1].setX(x);
+				cube[2].setX(x);
+				cube[3].setX(x+30);
+			}
+			if(rot==3){
+				cube[0].setX(x);
+				cube[1].setX(x+30);
+				cube[2].setX(x+60);
+				cube[3].setX(x+60);
+			}
+		}
+
+	}
+
