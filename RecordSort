@@ -1,0 +1,29 @@
+package basicFunc;
+
+public class RecordSort {
+	int[] record;
+ public RecordSort(String s){
+	 String []  spl = s.split("\n");
+	 record = new int[spl.length];
+	 for(int i =0;i<record.length;i++){
+	    record[i] = Integer.parseInt(spl[i].trim());
+	 }
+	 if(record.length!=1) quick_sort(record,record.length);
+ }
+ 
+	public void quick_sort(int[] arr,int last){
+		for(int i=0; i<last; ++i){
+		    for(int j=i+1; j<last; ++j){
+				if(arr[j]<arr[i]){
+					int tmp = arr[i];
+					arr[i]=arr[j];
+					arr[j]=tmp; 
+				}
+			}
+			}
+	}
+	
+	public int[] getRecord(){
+		return record;
+	}
+}
