@@ -1,0 +1,77 @@
+package building;
+
+import java.awt.Graphics2D;
+
+public class Field {
+	boolean data[][];
+	public Field(){
+		data=new boolean[18][24];
+		for(int i=1;i<17;i++){
+			for(int j=0;j<23;j++){
+				data[i][j]=false;
+			}
+		}
+		for(int i=0;i<18;i++){
+			data[i][0]=true;
+			data[i][23]=true;
+		}
+		for(int i=0;i<24;i++){
+			data[0][i]=true;
+			data[17][i]=true;
+		}
+	}
+
+	public void DeleteLine(int y){
+		for(int i=16;i>0;i--){
+			for(int j=y;j>1;j--){
+				data[i][j]=data[i][j-1];
+			}
+		}
+	}
+
+	public int CheckOnDeleting(){
+		for(int j=1;j<23;j++){
+			boolean fool = true;
+			for(int i = 1; i <17; i++){
+				if (data[i][j] != true){
+					fool = false;
+					break;
+				}
+			}
+			if (fool){
+				DeleteLine(j);
+				return j;
+			}
+		}
+		return -1;
+	}
+
+	public void FigMove(Figure x){
+		x.MoveOnField(data);
+	}
+	
+	public void ControlFigMoveLeft(Figure x){
+		if(!x.getStop()){
+			x.CtrlMoveLeft(data);
+		}
+	}
+	
+	public void ControlFigMoveRight(Figure x){
+		if(!x.getStop()){
+			x.CtrlMoveRight(data);
+		}
+	}
+	
+	public void ControlFigMoveDown(Figure x){
+		if(!x.getStop()){
+			x.CtrlMoveDown(data);
+		}
+	}
+	
+	public void ControlFigRotate(Figure x, Graphics2D g){
+		if(!x.getStop()){
+			x.RotateFig(data,g);
+		}
+	}
+
+}
