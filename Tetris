@@ -1,0 +1,28 @@
+package game;
+
+import java.io.IOException;
+
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
+public class Tetris{
+	private Game game;	
+	public Tetris() throws InterruptedException, IOException{
+		game=new Game();
+        game.start();
+	}
+	
+	public static void main(String args[]) throws InterruptedException, IOException{
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				try {
+                    UIManager.setLookAndFeel(
+                            UIManager.getSystemLookAndFeelClassName());
+            		new Tetris();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});		
+	}		
+}
