@@ -1,0 +1,90 @@
+package windows;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+
+import game.Game;
+
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import building.Cube;
+
+@SuppressWarnings("serial")
+public class ScoreWindow extends JPanel {
+	public static JFrame f;
+	Cube c = new Cube();
+	Image im;
+	public ScoreWindow(){
+		f=new JFrame("Score");
+		f.add(this);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setSize(200,300);
+		f.setVisible(true);
+		f.setLocationRelativeTo(null);
+		try {
+            im = ImageIO.read(new File("fon_score.jpg"));
+        } catch (IOException e) {}
+	}
+	public void paint(Graphics g){
+		super.paint(g);
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.drawImage(im, 0, 0, null);
+		g2d.drawString("Level "+Game.level, 25, 25);
+		g2d.drawString("Score: "+Game.score, 25, 50);
+		if(Game.score>Game.Records[Game.Records.length-1]){
+			g2d.setColor(Color.red);
+			g2d.drawString("NEW RECORD", 100, 50);
+			g2d.setColor(Color.black);
+		}
+		g2d.drawString("Next Figure: ", 40, 75);
+		switch(Game.list.get(0).getFigureType()){
+		case 1:
+			c.CubeBuild(g2d, 60, 90, 30, 30, Color.cyan);
+			c.CubeBuild(g2d, 60, 120, 30, 30, Color.cyan);
+			c.CubeBuild(g2d, 60, 150, 30, 30, Color.cyan);
+			c.CubeBuild(g2d, 60, 180, 30, 30, Color.cyan);
+			break;
+		case 2:
+			c.CubeBuild(g2d, 60, 90, 30, 30, Color.orange);
+			c.CubeBuild(g2d, 60, 120, 30, 30, Color.orange);
+			c.CubeBuild(g2d, 90, 90, 30, 30, Color.orange);
+			c.CubeBuild(g2d, 90, 120, 30, 30, Color.orange);
+			break;
+		case 3:
+			c.CubeBuild(g2d, 90, 90, 30, 30, Color.yellow);
+			c.CubeBuild(g2d, 90, 120, 30, 30, Color.yellow);
+			c.CubeBuild(g2d, 60, 120, 30, 30, Color.yellow);
+			c.CubeBuild(g2d, 60, 150, 30, 30, Color.yellow);
+			break;
+		case 4:
+			c.CubeBuild(g2d, 60, 90, 30, 30, Color.magenta);
+			c.CubeBuild(g2d, 60, 120, 30, 30, Color.magenta);
+			c.CubeBuild(g2d, 90, 120, 30, 30, Color.magenta);
+			c.CubeBuild(g2d, 90, 150, 30, 30, Color.magenta);
+			break;
+		case 5:
+			c.CubeBuild(g2d, 60, 120, 30, 30, Color.red);
+			c.CubeBuild(g2d, 90, 120, 30, 30, Color.red);
+			c.CubeBuild(g2d, 90, 90, 30, 30, Color.red);
+			c.CubeBuild(g2d, 120, 120, 30, 30, Color.red);
+			break;
+		case 6:
+			c.CubeBuild(g2d, 60, 90, 30, 30, Color.green);
+			c.CubeBuild(g2d, 60, 120, 30, 30, Color.green);
+			c.CubeBuild(g2d, 60, 150, 30, 30, Color.green);
+			c.CubeBuild(g2d, 90, 150, 30, 30, Color.green);
+			break;
+		case 7:
+			c.CubeBuild(g2d, 90, 90, 30, 30, Color.blue);
+			c.CubeBuild(g2d, 90, 120, 30, 30, Color.blue);
+			c.CubeBuild(g2d, 90, 150, 30, 30, Color.blue);
+			c.CubeBuild(g2d, 60, 150, 30, 30, Color.blue);
+		}
+	}
+}
