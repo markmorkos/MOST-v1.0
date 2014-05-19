@@ -1,0 +1,56 @@
+package windows;
+
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import files.FileWrite;
+
+@SuppressWarnings("serial")
+public class RecordWindow extends JPanel{
+	JFrame f = new JFrame("Records");
+	String[] s = new String[10];
+	public RecordWindow(FileWrite file,int[] record) throws IOException{
+		CloseButton();
+		f.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		f.setSize(250,450);
+		f.setVisible(true);
+		f.setLocationRelativeTo(null);
+		f.add(this);
+		for(int i=0;i<10;i++){
+			s[i]=" ";
+		}
+		int n=0;
+		for(int i=record.length-1;i>=0;i--){
+			StringBuilder sb = new StringBuilder();
+			sb.append(n+1+". ");
+			sb.append(record[i]);
+			sb.append("\n");
+			if(n<10){s[n]=sb.toString();}
+			n++;
+		}
+	}
+	public void paint(Graphics g){
+		super.paint(g);
+		for(int i=0;i<10;i++){
+			g.drawString(s[i], 25, (i*25)+25);
+		}
+	}
+	public void CloseButton(){
+		this.setLayout(null);
+		JButton button=new JButton("Close");
+		button.setSize(185, 70);
+		button.setLocation(25,300);
+		button.addActionListener(new ActionListener() {
+		     public void actionPerformed(ActionEvent e) {
+		    	 f.dispose();
+		     }
+		});
+		this.add(button);
+	}
+}
