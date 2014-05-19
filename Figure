@@ -1,0 +1,24 @@
+package building;
+
+import java.awt.Graphics2D;
+
+
+public interface Figure {
+	public int getFigureType();
+	public int getRot();
+	public int get0CubeY();
+	public void setRot(int rot);
+	public void setStop(boolean stop);
+	public void setFigureType(int type);
+	public void set0CubeY(int y);
+	public void set0CubeX(int x);
+	public boolean getStop();
+	public Cube[] getCube();
+	public void FigureBuild(Graphics2D g);
+	public void MoveOnField(boolean[][] data);
+	public void Move();
+	public void CtrlMoveLeft(boolean[][] data);
+	public void CtrlMoveRight(boolean[][] data);
+	public void CtrlMoveDown(boolean[][] data);
+	public void RotateFig(boolean[][] data, Graphics2D g);
+}
