@@ -1,0 +1,52 @@
+package windows;
+
+import game.Tetris;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.io.IOException;
+
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+public class WinGameWindow {
+	public WinGameWindow(JFrame frame, int score) throws InterruptedException{
+		final JOptionPane op  = new JOptionPane("YOU WIN!!!\nYour score is: "+score+"\nCongratulations!\nDo you want to play new game?",
+				 JOptionPane.PLAIN_MESSAGE,
+				    JOptionPane.YES_NO_OPTION);
+		final JDialog dialog = new JDialog(frame, 
+                "Click a button",
+                true);
+		op.addPropertyChangeListener(
+				new PropertyChangeListener() {
+					public void propertyChange(PropertyChangeEvent e) {
+						String prop = e.getPropertyName();
+
+						if (dialog.isVisible() && (e.getSource() == op)&& (prop.equals(JOptionPane.VALUE_PROPERTY))) {
+							dialog.dispose();
+						}
+					}
+
+				});
+		dialog.setContentPane(op);
+		//dialog.setDefaultCloseOperation(
+			//    JDialog.EXIT_ON_CLOSE);
+		dialog.pack();
+		dialog.setVisible(true);
+		
+		int value = ((Integer)op.getValue()).intValue();
+		if (value == JOptionPane.YES_OPTION) {
+			frame.dispose();
+			try {
+				new Tetris();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		} 
+		if(value == JOptionPane.NO_OPTION){
+			System.exit(0);
+		}
+	}
+}
