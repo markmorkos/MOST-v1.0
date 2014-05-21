@@ -1,12 +1,14 @@
 package windows;
 
+import game.Game;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import building.Field;
 
 public class TheEndWindow {
 	public TheEndWindow(JFrame parent,int score) throws InterruptedException, IOException{
@@ -34,7 +36,14 @@ public class TheEndWindow {
 
 		int value = ((Integer)optionPane.getValue()).intValue();
 		if (value == JOptionPane.YES_OPTION) {
-			new Menu("Menu");
+			Game.frame.dispose();
+			Game.M.getFrame().dispose();
+			ScoreWindow.f.dispose();
+			Game g = new Game();
+			Game.field = new Field();
+			g.start();
+			Game.list.clear();
+			Game.ChooseFigure(Game.list);
 		} 
 		else if (value == JOptionPane.NO_OPTION) {
 			@SuppressWarnings("unused")
