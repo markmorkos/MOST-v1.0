@@ -108,9 +108,7 @@ public class Game extends JPanel {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-	        			@SuppressWarnings("unused")
-						QuestionWindow q = new QuestionWindow(frame);
-					}
+	        			System.exit(0);
 	            }
 	        ); 
 		try {
